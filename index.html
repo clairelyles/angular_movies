@@ -8,17 +8,18 @@
   <script type="text/javascript" src="js/script.js"></script>
   <link rel='stylesheet' type='text/css' href='css/style.css'>
 </head>
-
+<!--
+ng-change='search()' ng-model-options='{debounce: 300}' -->
 <body ng-app='MoviesApp'>
   <div class='container' ng-controller='SearchController'>
 
     <h1>Movie Jive <small>{{searchTerm}}</small></h1>
-dd
+
     <form class='form' ng-submit='search()'>
       <!-- toggle has-error // movies.Error <= bc its called Error inside the json data-->
       <div class='form-group' ng-class="{'has-error': movies.Error}">
         <label class='control-label'>{{movies.Error}}</label>
-        <input type='text' class='form-control' ng-model='searchTerm' ng-model-options='{debounce: 300}'>
+        <input type='text' class='form-control' ng-model='searchTerm' typeahead="searchTerm for searchTerm in searchTerms | filter:$viewValue | limitTo:8">
       </div>
 
       <div class="btn-group">
@@ -33,7 +34,6 @@ dd
     <div ng-show='loading' class='text-center'>
       <img src='http://www.ansut.ci/web/img/captcha/loader1.gif' class='loading'>
     </div>
-
     <br><br>
     <table class='table table-hover' ng-show='movies.Search && !loading'>
       <thead>
