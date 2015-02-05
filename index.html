@@ -4,59 +4,22 @@
   <title>Movie Jive</title>
   <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
   <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.11/angular.min.js"></script>
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.11/angular-messages.js"></script>
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.11/angular-route.min.js"></script>
   <script type="text/javascript" src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.0.min.js"></script>
   <script type="text/javascript" src="js/script.js"></script>
   <link rel='stylesheet' type='text/css' href='css/style.css'>
 </head>
-<!--
-ng-change='search()' ng-model-options='{debounce: 300}' -->
 <body ng-app='MoviesApp'>
-  <div class='container' ng-controller='SearchController'>
-
-    <h1>Movie Jive <small>{{searchTerm}}</small></h1>
-
-    <form class='form' ng-submit='search()'>
-      <!-- toggle has-error // movies.Error <= bc its called Error inside the json data-->
-      <div class='form-group' ng-class="{'has-error': movies.Error}">
-        <label class='control-label'>{{movies.Error}}</label>
-        <input type='text' class='form-control' ng-model='searchTerm' typeahead="searchTerm for searchTerm in searchTerms | filter:$viewValue | limitTo:8">
-      </div>
-
-      <div class="btn-group">
-        <label class="btn btn-success" ng-change='search()' ng-model="searchType" btn-radio="'movie'" uncheckable>Movie</label>
-        <label class="btn btn-success" ng-change="search()" ng-model="searchType" btn-radio="'series'" uncheckable>Series</label>
-        <label class="btn btn-success" ng-change="search()" ng-model="searchType" btn-radio="'episode'" uncheckable>Episode</label>
-     </div>
-
-      <input type='submit' value='Search' class='btn btn-primary'>
-    </form>
-
-    <div ng-show='loading' class='text-center'>
-      <img src='http://www.ansut.ci/web/img/captcha/loader1.gif' class='loading'>
+  <div class='container'>
+    <h1>Welcome to Movie Jive</h1>
+     <a href='#!/'>Home</a> | <a href='#!/search'>Search</a>
+    <hr>
+    <div ng-view></div>
+    <hr>
+    <div class='footer'>
+      <em>(C) Movie Jive 2015-16</em>
     </div>
-    <br><br>
-    <table class='table table-hover' ng-show='movies.Search && !loading'>
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Year</th>
-          <th>Type</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- could've been taco in movies.Search -->
-        <tr ng-repeat='movie in movies.Search'>
-          <td>{{movie.Title}}</td>
-          <td>{{movie.Year}}</td>
-          <td><span class='label label-primary'>{{movie.Type | uppercase}}</span></td>
-        </tr>
-      </tbody>
-    </table>
-
-    <!-- <div>
-      {{movies}}
-    </div>
- -->
   </div>
 </body>
 </html>

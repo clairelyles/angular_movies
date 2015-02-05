@@ -2,3 +2,24 @@
   width: 50%;
   height: 50%;
 }
+
+div {
+  /*border: 1px solid #000;*/
+}
+
+.row {
+  margin-top: 10px;
+}
+
+.poster {
+  max-height: 250px;
+}
+
+.poster-div {
+  padding: 40px;
+  text-align: center;
+}
+
+.footer {
+  margin-top: 20px;
+}

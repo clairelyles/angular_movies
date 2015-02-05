@@ -1,5 +1,5 @@
 // #1 create module
-var moviesApp = angular.module('MoviesApp',['ui.bootstrap'])
+var moviesApp = angular.module('MoviesApp',['ui.bootstrap','ngRoute','ngMessages'])
 
 // #2 create a controller, scope and function (passes through scope)
 moviesApp.controller('SearchController', ['$scope', '$http', function($scope, $http){
@@ -34,7 +34,6 @@ moviesApp.controller('SearchController', ['$scope', '$http', function($scope, $h
 
       $scope.searchTerms.push($scope.searchTerm);
       window.localStorage.searchTerms = JSON.stringify($scope.searchTerms);
-
     })
 
   }
@@ -43,6 +42,44 @@ moviesApp.controller('SearchController', ['$scope', '$http', function($scope, $h
     $scope.search();
   }
 
-}])
+}]);
+
+moviesApp.controller('ShowController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams){
+  $scope.id = $routeParams.id
+
+  var req = {
+    url: 'http://www.omdbapi.com',
+    params: {
+      i: $scope.id
+    }
+  }
+
+  $http(req).success(function(movie_data) {
+    $scope.movie = movie_data
+    console.log('movie: ', movie_data);
+  })
+
+
+}]);
+
+moviesApp.config(['$routeProvider','$locationProvider', function($routeProvider,$locationProvider) {
+
+  $routeProvider
+    .when('/', {
+      templateUrl: '/landing.html',
+      controller: 'SearchController'
+    })
+    .when('/search', {
+      templateUrl: '/search.html',
+      controller: 'SearchController'
+    })
+    .when('/movie/:id', {
+      templateUrl: '/movie.html',
+      controller: 'ShowController'
+    })
+
+    $locationProvider.hashPrefix('!');
+
+}]);
 
 
