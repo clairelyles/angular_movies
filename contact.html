@@ -1,0 +1,22 @@
+<h2>User Page</h2>
+
+<form class="form" name='userForm' ng-submit='userForm.$valid && search()' nonvalidate>
+
+<!-- .$dirty means  -->
+  <div class='form-group' ng-class="{'has-error':userForm.userNameField.$dirty && userForm.userNameField.$invalid}">
+    <label class='control-label'>Name</label>
+    <input type='email' class='form-control' ng-model='username' name='userNameField' ng-minlength='5' ng-model-options="{debounce:{'default':300}}" required>
+    <div ng-messages='userForm.userNameField.$error' ng-messages-include='my-custom-messages' ng-show='userForm.userNameField.$dirty && userForm.userNameField.$invalid'></div>
+  </div>
+  <input type='submit' class='btn btn-warning' ng-disabled="userForm.$pristine || userForm.$invalid">
+
+</form>
+
+
+<script type="text/ng-template" id="my-custom-messages">
+  <div class="help-block" ng-message="required">This field is required</div>
+  <div class="help-block" ng-message="minlength">This field is too short!</div>
+  <div class="help-block" ng-message="email">This is not a valid email!</div>
+  <div class="help-block" ng-message="number">Not a number!</div>
+</script>
+

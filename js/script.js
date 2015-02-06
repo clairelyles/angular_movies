@@ -77,6 +77,10 @@ moviesApp.config(['$routeProvider','$locationProvider', function($routeProvider,
       templateUrl: '/movie.html',
       controller: 'ShowController'
     })
+    .when('/contact', {
+      templateUrl: '/contact.html',
+      controller: 'ShowController'
+    })
 
     $locationProvider.hashPrefix('!');
 
